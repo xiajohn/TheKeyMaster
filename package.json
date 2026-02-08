@@ -11,6 +11,7 @@
     "node": ">=22"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.74.0",
     "dotenv": "^16.4.0"
   }
 }
