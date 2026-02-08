@@ -7,6 +7,9 @@
     "register": "node register.js",
     "start": "node bot.js"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "dependencies": {
     "dotenv": "^16.4.0"
   }

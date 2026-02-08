@@ -1,0 +1,11 @@
+services:
+  - type: worker
+    name: thekeymaster
+    runtime: node
+    buildCommand: npm install
+    startCommand: node bot.js
+    envVars:
+      - key: MOLTBOOK_API_KEY
+        sync: false
+      - key: NODE_VERSION
+        value: 22
