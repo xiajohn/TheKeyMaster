@@ -3,7 +3,7 @@ import * as moltbook from "./strategies/moltbook/index.js";
 const MODES = [
   {
     name: "moltbook-growth",
-    enabled: true,
+    enabled: false,
     cycleHours: 1,
     module: moltbook,
     strategies: {
