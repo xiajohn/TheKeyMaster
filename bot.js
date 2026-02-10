@@ -52,7 +52,14 @@ async function main() {
     await mode.module.init(cycleCount);
   }
 
-  const interval = Math.min(...MODES.filter((m) => m.enabled).map((m) => m.cycleHours));
+  const enabledModes = MODES.filter((m) => m.enabled);
+  if (!enabledModes.length) {
+    log("No modes enabled. Idling.");
+    setInterval(() => {}, 60 * 60 * 1000);
+    return;
+  }
+
+  const interval = Math.min(...enabledModes.map((m) => m.cycleHours));
   log(`Cycle interval: ${interval} hours\n`);
 
   await runCycle();
