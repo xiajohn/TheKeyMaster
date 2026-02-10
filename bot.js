@@ -1,7 +1,5 @@
 import "dotenv/config";
 import * as moltbook from "./strategies/moltbook/index.js";
-import * as domains from "./strategies/domains/index.js";
-
 const MODES = [
   {
     name: "moltbook-growth",
@@ -17,16 +15,6 @@ const MODES = [
       createViralPost: true,
       commentOnHotPosts: true,
       commentOnSubmolts: true,
-    },
-  },
-  {
-    name: "domain-checker",
-    enabled: true,
-    cycleHours: 1,
-    module: domains,
-    strategies: {
-      checkExpiring: true,
-      checkDropped: true,
     },
   },
 ];
