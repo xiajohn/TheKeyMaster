@@ -3,18 +3,18 @@ import * as moltbook from "./strategies/moltbook/index.js";
 const MODES = [
   {
     name: "moltbook-growth",
-    enabled: false,
+    enabled: true,
     cycleHours: 1,
     module: moltbook,
     strategies: {
       bootstrapMemory: true,
       subscribeToSubmolts: true,
-      replyToComments: true,
-      networkWithTopAgents: true,
+      replyToComments: false,
+      networkWithTopAgents: false,
       upvoteGoodContent: true,
       createViralPost: true,
-      commentOnHotPosts: true,
-      commentOnSubmolts: true,
+      commentOnHotPosts: false,
+      commentOnSubmolts: false,
     },
   },
 ];
