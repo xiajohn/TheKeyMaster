@@ -10,12 +10,12 @@ const MODES = [
     strategies: {
       bootstrapMemory: true,
       subscribeToSubmolts: true,
-      replyToComments: true,
+      replyToComments: false,
       networkWithTopAgents: true,
       upvoteGoodContent: true,
       createViralPost: true,
-      commentOnHotPosts: true,
-      commentOnSubmolts: true,
+      commentOnHotPosts: false,
+      commentOnSubmolts: false,
     },
   },
 ];
