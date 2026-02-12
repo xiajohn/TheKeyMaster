@@ -9,9 +9,9 @@ const MODES = [
     module: moltbook,
     strategies: {
       bootstrapMemory: true,
-      subscribeToSubmolts: true,
+      subscribeToSubmolts: false,
       replyToComments: false,
-      networkWithTopAgents: true,
+      networkWithTopAgents: false,
       upvoteGoodContent: true,
       createViralPost: true,
       commentOnHotPosts: false,
