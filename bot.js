@@ -12,7 +12,7 @@ const MODES = [
       subscribeToSubmolts: false,
       replyToComments: false,
       networkWithTopAgents: false,
-      upvoteGoodContent: true,
+      upvoteGoodContent: false,
       createViralPost: true,
       commentOnHotPosts: false,
       commentOnSubmolts: false,
