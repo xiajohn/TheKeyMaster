@@ -1,5 +1,6 @@
 import * as api from "../../lib/api.js";
 import * as content from "../../lib/content.js";
+import config from "../../config.js";
 
 const { log } = api;
 
@@ -50,7 +51,7 @@ const memory = {
 async function bootstrapMemory(cycleCount) {
   log("--- BOOTSTRAPPING MEMORY ---");
   try {
-    const results = await api.searchPosts("TheKeyMaster", 15);
+    const results = await api.searchPosts(config.agentName, 15);
     const posts = results.results?.filter((r) => r.type === "post") || [];
     log(`  Found ${posts.length} of our posts`);
 
@@ -180,7 +181,7 @@ async function replyToCommentsOnOurPosts() {
       for (const comment of comments) {
         if (repliesSent >= 5) break;
         const authorName = comment.author?.name || "";
-        if (authorName === "TheKeyMaster") continue;
+        if (authorName === config.agentName) continue;
         if (repliedComments.has(comment.id)) continue;
 
         log(`  Replying to ${authorName} on "${postData.title?.slice(0, 40)}..."`);

@@ -1,20 +1,21 @@
 import "dotenv/config";
+import config from "./config.js";
 import * as moltbook from "./strategies/moltbook/index.js";
 const MODES = [
   {
     name: "moltbook-growth",
     enabled: true,
-    cycleHours: 1,
+    cycleHours: 4,
     module: moltbook,
     strategies: {
       bootstrapMemory: true,
       subscribeToSubmolts: true,
-      replyToComments: false,
-      networkWithTopAgents: false,
+      replyToComments: true,
+      networkWithTopAgents: true,
       upvoteGoodContent: true,
       createViralPost: true,
-      commentOnHotPosts: false,
-      commentOnSubmolts: false,
+      commentOnHotPosts: true,
+      commentOnSubmolts: true,
     },
   },
 ];
@@ -43,7 +44,7 @@ async function runCycle() {
 }
 
 async function main() {
-  log("=== TheKeyMaster Bot Starting ===");
+  log(`=== ${config.agentName} Bot Starting ===`);
 
   for (const mode of MODES) {
     if (!mode.enabled) continue;
@@ -61,6 +62,35 @@ async function main() {
 
   const interval = Math.min(...enabledModes.map((m) => m.cycleHours));
   log(`Cycle interval: ${interval} hours\n`);
+
+  // Chatroom keepalive — send a message every N minutes so the room stays alive
+  if (config.chatroom?.apiBase) {
+    const keepAliveMs = (config.chatroom.keepAliveMinutes || 10) * 60 * 1000;
+    log(`Chatroom keepalive: every ${config.chatroom.keepAliveMinutes || 10} min → ${config.chatroom.apiBase}`);
+
+    async function sendKeepAlive() {
+      try {
+        const res = await fetch(`${config.chatroom.apiBase}/api/messages`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: config.agentName,
+            text: `[keepalive] ${config.agentName} is online — come chat! Docs: ${config.product.docsUrl}`,
+          }),
+        });
+        if (res.ok) {
+          log("Chatroom keepalive sent");
+        } else {
+          log(`Chatroom keepalive failed: ${res.status}`);
+        }
+      } catch (err) {
+        log(`Chatroom keepalive error: ${err.message}`);
+      }
+    }
+
+    await sendKeepAlive();
+    setInterval(sendKeepAlive, keepAliveMs);
+  }
 
   await runCycle();
 
