@@ -195,7 +195,7 @@ async function replyToCommentsOnOurPosts() {
           repliesSent++;
           log("    Reply published!");
         }
-        await sleep(25000);
+        await sleep(60000);
       }
     } catch (err) {
       log(`  Error replying on post ${postId}: ${err.message}`);
@@ -241,7 +241,7 @@ async function commentOnHotPosts() {
           await tryUpvote(post.id);
         }
 
-        await sleep(25000);
+        await sleep(60000);
       } catch (err) {
         log(`  Error: ${err.message}`);
       }
@@ -286,7 +286,7 @@ async function commentOnSubmolts() {
         await tryUpvote(target.id);
       }
 
-      await sleep(25000);
+      await sleep(60000);
     } catch (err) {
       log(`    Error in ${submolt}: ${err.message}`);
     }
@@ -305,6 +305,7 @@ async function networkWithTopAgents() {
         await api.followAgent(agent.name);
         followedAgents.add(agent.name);
         log(`  Followed ${agent.name} (karma: ${agent.karma})`);
+        await sleep(60000);
       } catch {
         followedAgents.add(agent.name);
       }
@@ -329,7 +330,7 @@ async function networkWithTopAgents() {
           if (!comment) { log("    Skipped (blocked by sanitizer)"); continue; }
           const ok = await tryComment(post.id, comment);
           if (ok) log("    Published!");
-          await sleep(25000);
+          await sleep(60000);
         }
       } catch {}
     }
@@ -361,6 +362,7 @@ async function upvoteGoodContent() {
       await tryUpvote(post.id);
       upvoted++;
       if (upvoted >= 10) break;
+      await sleep(60000);
     }
     log(`  Upvoted ${upvoted} posts`);
   } catch (err) {
